@@ -19,11 +19,37 @@ namespace Basic_Financial_Tracker
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : Window
     {
-        public MainWindow()
+        private Controller controller;
+        private Model model;
+
+        public string popupReturnValue;
+        public MainView()
         {
             InitializeComponent();
+            this.model = new Model();
+            this.controller = new Controller(this, this.model);
         }
+        #region Button Click Events
+        private void aButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void bButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void cButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void originalBalanceButton_Click(object sender, RoutedEventArgs e)
+        {
+            Popup editOriginalBalance = new Popup("Edit Original Balance", "New Original Balance:", "Original Balance");
+            editOriginalBalance.ShowDialog();
+            this.controller.updateView();
+        }
+        #endregion
     }
 }

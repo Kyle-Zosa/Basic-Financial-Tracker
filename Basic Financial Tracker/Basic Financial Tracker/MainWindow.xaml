@@ -1,31 +1,73 @@
-﻿<Window x:Class="Basic_Financial_Tracker.MainWindow"
+﻿<Window x:Class="Basic_Financial_Tracker.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Basic_Financial_Tracker"
         mc:Ignorable="d"
-        Title="Basic Financial Tracker" Height="500" Width="700" MinHeight="500" MinWidth="700">
+        Title="Basic Financial Tracker" Height="500" Width="700" MinHeight="500" MinWidth="700" Icon="GoldenCoin.ico">
     <TabControl>
         <TabItem Header="Table" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="auto">
             <Grid Margin="5,0,5,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="27"/>
                     <RowDefinition Height="200*"/>
-                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="100*" MaxHeight="175"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" x:Name="dataGridLabel" Content="Transactions Table" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <DataGrid Grid.Row="1" x:Name="transactionDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
-                <GroupBox Grid.Row="2" x:Name="transactionGroupBox" Header="Transaction Controls" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                <Grid x:Name="mainLabelGrid" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="informationLabel" Content="Information" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Grid.Column="1" x:Name="dataGridLabel" Content="Transactions Table" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" MaxHeight="500" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" x:Name="currentBalanceLabel" Content="Current Balance:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Label Grid.Row="1" x:Name="currentBalanceValue" Content="P 000000.00" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <GroupBox Grid.Row="2" x:Name="dailyAverageGroupBox" Header="Daily Averages" Margin="0,5,5,0">
+                            <Grid x:Name="dailyAverageGrid" Margin="0,5,5,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" x:Name="dailyInFlowLabel" Content="Revenue:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="1" x:Name="dailyInFlowValue" Content="P 000000.00" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                <Label Grid.Row="2" x:Name="dailyOutFlowLabel" Content="Expenses:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="3" x:Name="dailyOutFlowValue" Content="P 000000.00" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                <Label Grid.Row="4" x:Name="dailyNetFlowLabel" Content="Net Flow:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="5" x:Name="dailyNetFlowValue" Content="P 000000.00" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <DataGrid Grid.Row="1" x:Name="transactionDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+                    </Grid>
+                </Grid>
+                <GroupBox Grid.Row="2" x:Name="transactionGroupBox" Header="Transaction Controls" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,15,5,5">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="95"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid x:Name="transactionButtonGrid" Grid.Column="0" VerticalAlignment="Center">
-                            <Button x:Name="addButton" Content="Add" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button x:Name="editButton" Content="Edit" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button x:Name="deleteButton" Content="Delete" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button x:Name="aButton" Content="Add" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="aButton_Click"/>
+                            <Button x:Name="bButton" Content="Edit" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="75" Click="bButton_Click"/>
+                            <Button x:Name="cButton" Content="Delete" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="75" Click="cButton_Click"/>
                         </Grid>
                         <Grid x:Name="transactionInfoGrid" Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -34,11 +76,11 @@
                             </Grid.RowDefinitions>
                             <Grid x:Name="mainInfoGrid" Grid.Row="0" Margin="0,0,5,0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1.65*"/>
+                                    <ColumnDefinition Width="1.6*"/>
                                     <ColumnDefinition Width="1.25*"/>
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="1.25*"/>
-                                    <ColumnDefinition Width="1.7*"/>
+                                    <ColumnDefinition Width="1.725*"/>
                                     <ColumnDefinition Width="1.5*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid x:Name="labelInfoGrid1" Grid.Column="0">
@@ -78,8 +120,8 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBox Grid.Row="0" x:Name="amountTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="01234567.12" VerticalAlignment="Center"/>
-                                    <TextBox Grid.Row="1" x:Name="categoryTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="01234567" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="0" x:Name="amountTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="123456.78" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="1" x:Name="categoryTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Allowance" VerticalAlignment="Center"/>
                                 </Grid>
                                 <Grid x:Name="subInfoGrid3" Grid.Column="5">
                                     <Grid.RowDefinitions>
@@ -90,7 +132,7 @@
                                     <TextBox Grid.Row="1" x:Name="dateModifiedTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Sept. 15, 2015" VerticalAlignment="Center"/>
                                 </Grid>
                             </Grid>
-                            <Grid x:Name="descriptionGrid" Grid.Row="1">
+                            <Grid x:Name="descriptionGrid" Grid.Row="1" Margin="0,5,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="75"/>
                                     <ColumnDefinition Width="*"/>
@@ -112,7 +154,35 @@
         </TabItem>
         <TabItem Header="Details" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="auto">
             <Grid>
-
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Row="0" x:Name="constantsGroupBox" Header="Constants">
+                    <Grid x:Name="constantsGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" x:Name="originalBalanceGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" x:Name="originalBalance" Content="Original Balance: P 6,530.60" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <Button Grid.Column="1" x:Name="originalBalanceButton" Content="Edit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Click="originalBalanceButton_Click"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
             </Grid>
         </TabItem>
     </TabControl>
